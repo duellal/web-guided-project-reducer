@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 import reducer, { initialState } from './reducers/calcReducer';
-import { operationActions, nonOpActions } from "./actions/calcActions";
+import { operationActions, nonOpActions, ADD_ACTION, SUBTRACT_ACTION, CLEAR_ACTION, ADD_TO_MEMORY_ACTION } from "./actions/calcActions";
 import "./styles.css";
 
 // //Class code:
@@ -39,7 +39,7 @@ import "./styles.css";
 // console.log('Current State:', currentData)
 
 //My code:
-// Put in a seperate folder:
+// Put in a seperate folder as best practice:
 // const operationActions = (action, input) => {
 //   return ({ type: action, payload: input })
 // }
@@ -48,33 +48,58 @@ import "./styles.css";
 //   return ({ type: action })
 // }
 
-let currentData = initialState
-console.log('Current State:', currentData)
+// let currentData = initialState
+// console.log('Current State:', currentData)
 
-currentData = reducer(currentData, operationActions('ADD', 6))
-console.log('Current State:', currentData)
+// currentData = reducer(currentData, operationActions(ADD_ACTION, 6))
+// console.log('Current State:', currentData)
 
-currentData = reducer(currentData, operationActions('ADD', 9))
-console.log('Current State:', currentData)
+// currentData = reducer(currentData, operationActions(ADD_ACTION, 9))
+// console.log('Current State:', currentData)
 
-currentData = reducer(currentData, nonOpActions('ADD_TO_MEMORY'))
-console.log('Current State:', currentData)
+// currentData = reducer(currentData, nonOpActions(ADD_TO_MEMORY_ACTION))
+// console.log('Current State:', currentData)
 
-currentData = reducer(currentData, operationActions('SUBTRACT', 10))
-console.log('Current State:', currentData)
+// currentData = reducer(currentData, operationActions(SUBTRACT_ACTION, 10))
+// console.log('Current State:', currentData)
 
-currentData = reducer(currentData, nonOpActions("CLEAR"))
-console.log('Current State:', currentData)
+// currentData = reducer(currentData, nonOpActions(CLEAR_ACTION))
+// console.log('Current State:', currentData)
 
 
 
 export default function App() {
+  const [state, dispatch] = useReducer(reducer, initialState)
+  console.log('Current State:', state)
+
+  const handleAdd2 = () => {
+    dispatch(operationActions(ADD_ACTION, 2))
+  }
+
+  const handleSubtract5 = () => {
+    dispatch(operationActions(SUBTRACT_ACTION, 5))
+  }
+
+  const handleClear = () => {
+    dispatch(nonOpActions(CLEAR_ACTION))
+  }
+
   return (
     <div className="App">
-      <textarea rows="1" value="0" id="total" type="text" name="ans"></textarea>
+      <textarea rows="1"
+        value={state.currentValue}
+        id="total"
+        type="text"
+        name="ans"></textarea>
       <br />
-      <button type="button" className="btn">
-        +
+      <button onClick={handleAdd2} type="button" className="btn">
+        + 2
+      </button>
+      <button onClick={handleSubtract5} type="button" className="btn">
+        - 5
+      </button>
+      <button onClick={handleClear} type="button" className="btn">
+        clear
       </button>
     </div>
   );
