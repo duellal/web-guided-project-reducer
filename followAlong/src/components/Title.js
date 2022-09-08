@@ -5,8 +5,6 @@ import { reducer, initialState } from '../reducers/index'
 const Title = () => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  console.log('State:', state)
-
   const handleChanges = e => {
     dispatch(setTitleText(e.target.value))
   };
@@ -17,7 +15,6 @@ const Title = () => {
 
   const handleFormSubmit = () => {
     dispatch(setTitle())
-    dispatch(toggleEdit())
   }
 
   return (

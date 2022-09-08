@@ -3,7 +3,7 @@ import { TOGGLE_EDIT, SET_TOGGLE_EDIT, SET_TITLE, SET_TITLE_TEXT } from "../acti
 export const initialState = {
    title: 'Hello earthlings!',
    editing: false,
-   newTitleText: ''
+   newTitleText: 'Hello earthlings!'
 }
 
 export function reducer(state, action) {
@@ -11,7 +11,11 @@ export function reducer(state, action) {
       case SET_TITLE_TEXT:
          return ({ ...state, newTitleText: action.payload });
       case SET_TITLE:
-         return ({ ...state, title: state.newTitleText });
+         return ({
+            ...state,
+            title: state.newTitleText,
+            editing: !state.editing
+         });
       case TOGGLE_EDIT:
          return ({ ...state, editing: !state.editing });
       case defualt:
